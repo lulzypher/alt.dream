@@ -1,94 +1,97 @@
 # Lulzyverse
 
-**User-owned apps, one universe.**
+**User-owned apps, one universe — browser shell, social identity, chain playground.**
 
-[Lulzyverse planning →](docs/planning.md)
-
----
-
-## How it fits together
-
-**Yes — this is the shape:** one **browser-facing** home for the ecosystem, **identity and chat** on gHosted, and **Shadowbox** as the place where chain rules, jobs, and **credits** play out.
-
-| Layer | What it is |
-|--------|------------|
-| **Lulzyverse** (`lulzyverse.dao`, this repo) | The **browser interface** for the whole project: navigation, chrome, and the shell that ties modules together. It is where people **live in the UI** day to day. |
-| **[gHosted](https://github.com/lulzypher/gHosted)** (`gHosted.u`) | **Login** and **messaging** — DID-first, social, mesh-oriented identity and chat that the Lulzyverse UI plugs into. |
-| **Shadowbox** | The **chain playground**: modules (ArchiveBox, hosts, hooks, …), schedulers, settlement, and **credits earned** for fulfilled work. On-chain coordination, escrow, and MPC-style coalitions attach **here**. |
-
-You can still adopt **one piece** or the **full mesh**; the README above describes the **integrated** story.
+[Planning (living notes) →](docs/planning.md) · [Repository](https://github.com/lulzypher/lulzyverse)
 
 ---
 
-## Per-job contracts
+## What this is
 
-Work is not one boilerplate agreement for everything. **Terms are written per job**: each request (including bounties posted by people **or** agents plugged into the system) carries its own **contract** — acceptance criteria, splits or bounties, deadlines, receipts, and dispute hooks — so **effort and risk** can vary job by job without a single global ratio pretending to fit all.
+**Lulzyverse** is the **browser-facing hub** for a small constellation of projects: one place to land, sign in, message, and jump into **Shadowbox** work (jobs, modules, credits, contracts). You can use **one piece** or the **full mesh**; nothing forces you to run every module.
 
----
-
-## What lives in which repo
-
-| Piece | Role |
-|--------|------|
-| **Lulzyverse (this repo)** | Browser UI / hub app + ecosystem docs until the app code fully lands here. |
-| **[gHosted](https://github.com/lulzypher/gHosted)** | Auth, profiles, messaging — the social and identity layer the hub uses. |
-| **[DecentralizedArchiveBox](https://github.com/lulzypher/DecentralizedArchiveBox)** | Archiving stack, evolving as the **ArchiveBox** module under Shadowbox. |
+| Domain (intent) | Role |
+|-----------------|------|
+| **lulzyverse.dao** | Public home: **this repo** grows into the **UI shell** — navigation, chrome, ecosystem story. |
+| **gHosted.u** | **Login and messaging** — DID-first, local-first social layer the hub embeds or deep-links to. Code: **[gHosted](https://github.com/lulzypher/gHosted)**. |
+| **ArchiveBox.nft** | Preservation / archiving as a **named surface**; implementation evolves from **[DecentralizedArchiveBox](https://github.com/lulzypher/DecentralizedArchiveBox)** as the **ArchiveBox** module inside Shadowbox. |
 
 ---
 
-## Shadowbox (platform)
+## Three layers (mental model)
 
-**Shadowbox** is the **platform layer** behind the playground: modular **personal infrastructure** — orchestration and runtime for workloads that may be **short-lived** or **on demand** (sites, APIs, sandboxes, tunnels, capture jobs, and more). It is **broader** than a single archive product.
-
-### ArchiveBox inside Shadowbox
-
-**ArchiveBox** is a **component of Shadowbox**, not a separate top-level brand. It is one **module** in a catalog.
-
-- **Modules** — e.g. ArchiveBox (preservation), static hosts, webhook sinks, …  
-- **Schedulers** — who may run a job: you, friends, a guild, public mesh.  
-- **Settlement** — gift / reciprocity by default; **credits** and on-chain **escrow** where policies say so; **per-job contracts** define the economics and acceptance for that run.
-
-Details: [docs/planning.md](docs/planning.md).
+| Layer | Responsibility |
+|--------|----------------|
+| **Lulzyverse** (this repo) | **Browser interface** — where people live day-to-day: apps, layout, and glue into the other systems. |
+| **[gHosted](https://github.com/lulzypher/gHosted)** | **Identity + chat** — profiles, DIDs, messaging; the hub treats this as the social substrate. |
+| **Shadowbox** | **Chain playground** — modules (ArchiveBox, static hosts, webhooks, sandboxes, tunnels, capture jobs, …), **schedulers** (who may run work), **settlement** (gifts, **credits**, optional escrow). On-chain coordination and **MPC-style coalitions** attach here, not to “replace” off-chain compute. |
 
 ---
 
-## How it *feels*: LARP-forward
+## Shadowbox in one paragraph
 
-The ecosystem is meant to **read like a LARP**: guilds, quests, in-world names for real systems — **not** gray corporate SaaS. Underneath, cryptography and policy stay explicit: **money, keys, and obligations stay signposted** so nobody confuses story with stakes.
+**Shadowbox** is modular **personal infrastructure**: short-lived or on-demand runtimes (sites, APIs, previews, glue endpoints, dev sandboxes, VPN/tunnel **where policy allows**), plus scheduled **capture / mirror** jobs (the ArchiveBox lineage). **ArchiveBox** is a **component module** of Shadowbox — not a competing top-level brand.
 
-There will always be an **out-of-character** path (plain specs, ToS, abuse limits) for operators and auditors.
-
----
-
-## On-chain coordination and MPC
-
-**On-chain** is for **coordination and settlement** where useful: registries, stakes, escrow, reputation anchors — not “put the whole internet on-chain.”
-
-**MPC (multi-party computation)** supports **threshold coalitions** — t-of-n operators so **no single party holds a full secret**. In product language, these are **“MPC servers”**: orders or circles that act only when enough members agree, useful for signing, gated release, and attestations. Heavy always-on services still need clear trust and abuse models; MPC addresses **custody and policy**, not infinite scale.
+Each module declares **inputs, outputs, resource class**, and **receipts** so work can be attested and settled.
 
 ---
 
-## Economics (intent)
+## Per-job contracts (and agents)
 
-- **Default:** sharing-first — capacity, pipelines, pinning, mutual aid; reputation and reciprocity.  
-- **Shadowbox / chain:** **credits** for fulfilled, attested work; optional **prepaid crypto** on **per-job contracts** when someone needs guaranteed completion and verifiable receipts.
+There is **no single global boilerplate** for all work. **Terms are written per job**: acceptance criteria, bounty or split, deadlines, receipts, dispute hooks — whether the poster is a **person** or an **agent** integrated with the system. That keeps **effort and risk** honest without one fixed “ratio” for every job type.
+
+*(Ingress APIs, auth, and rate limits for agent-posted jobs are part of Shadowbox design; see [planning](docs/planning.md).)*
 
 ---
 
-## Repository layout
+## Economics (culture + mechanics)
+
+- **Default:** **sharing-first** — capacity, pipelines, pinning, mutual aid; reputation and reciprocity.  
+- **Shadowbox:** **credits** for fulfilled, attested work on the playground.  
+- **Optional later:** **prepaid crypto** on the same **per-job contract** graph when completion must be guaranteed and outputs are **verifiable** (hashes, bundles, signed attestations — not hand-wavy “run a service forever”).
+
+---
+
+## LARP-forward, not lore-washed
+
+The product **reads like a LARP** when you want it to: guilds, quests, diegetic names for real systems. **Money, keys, and legal obligations** stay **explicit** (plain language, ToS, OOC docs) so story never obscures stakes.
+
+---
+
+## On-chain vs MPC (short version)
+
+- **On-chain:** coordination — registries, stakes, escrow, reputation anchors.  
+- **MPC / threshold coalitions (“MPC servers” in lore):** **t-of-n** operators so **no single party holds the full secret** — signing, gated release, attestations. Good for **custody and policy**; not a substitute for abuse review on heavy always-on services.
+
+More detail: [docs/planning.md](docs/planning.md) (tables, open decisions, draft pitch).
+
+---
+
+## Repositories
+
+| Repo | What to open for |
+|------|------------------|
+| **[lulzyverse](https://github.com/lulzypher/lulzyverse)** (here) | Hub UI + ecosystem docs. |
+| **[gHosted](https://github.com/lulzypher/gHosted)** | Decentralized social / DID / mesh app. |
+| **[DecentralizedArchiveBox](https://github.com/lulzypher/DecentralizedArchiveBox)** | Archiving stack → **ArchiveBox** module. |
+
+---
+
+## Layout of this repo
 
 ```
 docs/
-  planning.md   # Living architecture + product notes
+  planning.md    # Architecture, LARP/MPC notes, economics, open questions
+README.md        # You are here — public overview
 ```
 
-Implementation for **gHosted** and **ArchiveBox / DecentralizedArchiveBox** lives in their **own repositories**. This repo is the **Lulzyverse shell** and **constellation map** as the UI grows here.
+Application code for **gHosted** and **DecentralizedArchiveBox** lives in those repositories; **Lulzyverse** is the shell and map **until** (and while) hub code accumulates here.
 
 ---
 
 ## Contributing
 
-Ideas, canon, and planning edits welcome via issues and PRs. For **gHosted** or **ArchiveBox / DecentralizedArchiveBox** code changes, use the linked repositories.
+Issues and PRs welcome for **docs and canon**. For **gHosted** or **ArchiveBox** behavior and code, contribute in **[gHosted](https://github.com/lulzypher/gHosted)** and **[DecentralizedArchiveBox](https://github.com/lulzypher/DecentralizedArchiveBox)**.
 
 ---
 
